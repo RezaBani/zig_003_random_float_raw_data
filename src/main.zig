@@ -29,7 +29,7 @@ pub fn main() void {
     const args = parseArgs(rawArgs) catch |err| switch (err) {
         ArgsError.TooManyArgs => {
             std.debug.print("{}\n", .{err});
-            std.debug.print("This executable accepts only {d} arguments but more than {} argument is provided!\n", .{ MAX_ARGS_COUNT - 1, MAX_ARGS_COUNT - 1 });
+            std.debug.print("This executable accepts only {d} arguments but more than {d} argument is provided!\n", .{ MAX_ARGS_COUNT - 1, MAX_ARGS_COUNT - 1 });
             std.process.exit(1);
         },
         std.fmt.ParseIntError.InvalidCharacter => {
@@ -74,7 +74,7 @@ pub fn parseArgs(args: [][]const u8) !CommandLineArguments {
     if (args.len > MAX_ARGS_COUNT) {
         return ArgsError.TooManyArgs;
     }
-    const count: usize = if (args.len > 1)
+    const count = if (args.len > 1)
         try std.fmt.parseUnsigned(usize, args[@intFromEnum(ArgumentsOrder.Count)], 10)
     else
         DEFAULT_COUNT;
