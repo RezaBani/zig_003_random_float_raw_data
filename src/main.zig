@@ -60,7 +60,7 @@ pub fn main() void {
 fn readArgs(allocator: std.mem.Allocator) ![][]const u8 {
     var args = try std.process.argsWithAllocator(allocator);
     defer args.deinit();
-    var argsArray = std.ArrayList([]u8).init(allocator);
+    var argsArray = std.ArrayList([]const u8).init(allocator);
     while (args.next()) |arg| {
         const buf = try allocator.alloc(u8, arg.len);
         @memcpy(buf, arg);
